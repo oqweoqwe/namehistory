@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,7 +104,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 					.replace("6", "July")
 					.replace("7", "August")
 					.replace("8", "September")
-					.replace("9", "Oktober")
+					.replace("9", "October")
 					+ " "
 					+ calendar.get(Calendar.DAY_OF_MONTH)+"&7)"));
 		}
