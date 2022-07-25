@@ -1,0 +1,8 @@
+main: me.oqwe.namehistory.Main
+version: 1.0
+name: NameHistory
+authors: [oqwe]
+api-version: 1.19
+commands:
+  namehistory:
+    aliases: [nh]
