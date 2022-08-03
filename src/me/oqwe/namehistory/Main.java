@@ -29,21 +29,28 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	public void onEnable() {
 
 		getCommand("namehistory").setExecutor(this);
+		saveDefaultConfig();
 
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (!sender.hasPermission("namehistory.use")) {
-			sender.sendMessage(cc("&cYou do not have permission to use this command"));
+			sender.sendMessage(cc(getConfig().getString("nopermission")));
 			return true;
 		}			
 		
 		if (args.length >= 1) {
 
+			if (args[0].equalsIgnoreCase("reload")) {
+				reloadConfig();
+				sender.sendMessage(cc(getConfig().getString("reload")));
+				return true;
+			}
+			
 			String id = null;
 
-			sender.sendMessage(cc("&eFetching data on &6" + args[0]));
+			sender.sendMessage(cc(getConfig().getString("fetch").replace("<player>", args[0])));
 
 			// get uuid from username
 			try {
@@ -66,10 +73,10 @@ public class Main extends JavaPlugin implements CommandExecutor {
 				sendPrettyMessage(sender, getAMapFromTheGoddamnList(parseJsonArray(history)), args[0]);
 
 			} else
-				sender.sendMessage(cc("&cThere doesn't seem to be a player with that name"));
+				sender.sendMessage(cc(getConfig().getString("noplayer")));
 
 		} else
-			sender.sendMessage(cc("&cYou must specify a player to view their nanme history"));
+			sender.sendMessage(cc(getConfig().getString("wronguse")));
 
 		return true;
 	}

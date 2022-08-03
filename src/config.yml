@@ -1,0 +1,14 @@
+# no permission message
+nopermission: '&cYou do not have permission to use this command'
+
+# reload msg
+reload: '&6NameHistory &ehas been reloaded'
+
+# fetch message
+fetch: '&eFetching data on &6<player>'
+
+# no player msg
+noplayer: '&cThere does not seem to be a player with that name'
+
+# wrong use msg
+wronguse: '&cYou must specify a player to view their name history'
