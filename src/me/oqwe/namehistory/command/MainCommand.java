@@ -14,16 +14,17 @@ public class MainCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (!sender.hasPermission("namehistory.use")) {
-			sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("no-permission")));
-			return true;
-		}
-		
 		if (args.length < 1) {
 			sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("wrong-use")));
 		}
-		
+
 		if (args[0].charAt(0) == '!') {
+
+			if (!sender.hasPermission("namehistory.history")) {
+				sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("no-permission")));
+				return true;
+			}
+
 			try {
 				History.run(sender, args[0].substring(1));
 			} catch (Exception e) {
@@ -31,29 +32,41 @@ public class MainCommand implements CommandExecutor {
 			}
 			return true;
 		}
-		
+
 		switch (args[0]) {
-		
+
 		case "reload":
-			Reload.run(sender); 
+			if (!sender.hasPermission("namehistory.reload")) {
+				sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("no-permission")));
+				return true;
+			}
+			Reload.run(sender);
 			return true;
-			
-		/*case "skin":
-			Skin.run(sender, args);
-			return true;*/
-			
+
+		/*
+		 * case "skin": Skin.run(sender, args); return true;
+		 */
+
 		case "help":
+			if (!sender.hasPermission("namehistory.help")) {
+				sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("no-permission")));
+				return true;
+			}
 			Help.run(sender);
 			return true;
-			
+
 		default:
+			if (!sender.hasPermission("namehistory.history")) {
+				sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("no-permission")));
+				return true;
+			}
 			try {
 				History.run(sender, args[0]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return true;
-			
+
 		}
 
 	}
