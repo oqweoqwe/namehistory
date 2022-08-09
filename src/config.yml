@@ -1,14 +1,42 @@
+# placeholders. these only work on the messages where they make sense
+# <pluginname>, <version>, <player>, <name>, <year>, <month>, <day>
+
 # no permission message
-nopermission: '&cYou do not have permission to use this command'
+no-permission: '&cYou do not have permission to use this command'
 
 # reload msg
-reload: '&6NameHistory &ehas been reloaded'
+reload: '&6<pluginname> v<version> &ehas been reloaded'
 
-# fetch message
-fetch: '&eFetching data on &6<player>'
+# sent when running /nh <name>
+fetch: '&eFetching data on &6<player>&e...'
 
-# no player msg
-noplayer: '&cThere does not seem to be a player with that name'
+# no player msg (use <name> for the name)
+no-player: '&cThere does not seem to be a player with that name'
 
-# wrong use msg
-wronguse: '&cYou must specify a player to view their name history'
+# if a player uses a command incorrectly, this message is displayed
+wrong-use: '&cIncorrect command, try /nh help'
+
+# if a player has never changed their name, this message is displayed. <player> is replaced with their name
+never-changed-name: '&6<player> &ehas never changed their name'
+
+# history title
+history-is: '&eThe name history for &6<player> &eis'
+
+# the first name a player had in their history
+first-name: '&7- &e<name> &7was this players first name'
+
+# message shown when showing a players name history
+name: '&7- &e<name> &7(changed in &6<year> &7on &6<month> <day>&7)'
+
+# sent to a player if too many http requests are sent to mojang api
+too-many-requests: '&cThere have been too many requests in a short amount of time, please wait a minute before trying again'
+
+# configure the help message. each new line is a new line in chat
+help:
+  - '&6<pluginname> v<version>&7:'
+  - '&7Fetch data on a player'
+  - '&7- &6/nh <player> &7note: if you are searching for a name like "reload" write /nh !reload, the ! ignores subcommands'
+  - '&7Reload the config'
+  - '&7- &6/nh reload'
+  - '&7Help'
+  - '&7- &6/nh help'
