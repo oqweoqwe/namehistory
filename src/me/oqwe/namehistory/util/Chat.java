@@ -10,6 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import me.oqwe.namehistory.Main;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class Chat {
 
@@ -19,7 +23,7 @@ public class Chat {
 		return ChatColor.translateAlternateColorCodes('&', msg);
 	}
 
-	public static void sendFormattedMessage(CommandSender sender, Set<Entry<String, Long>> names, String currentName) {
+	public static void sendFormattedMessage(CommandSender sender, Set<Entry<String, Long>> names, String currentName) throws Exception {
 
 		// if there is only one name in the map, player has never changed their name
 		if (names.size() == 1) {
@@ -30,7 +34,7 @@ public class Chat {
 		}
 
 		sender.sendMessage(cc(config.getString("history-is").replace("<player>", currentName)));
-		
+
 		for (var entry : names) {
 
 			// the first name is formatted differently, as there is no change date
@@ -52,6 +56,20 @@ public class Chat {
 			sender.sendMessage(
 					cc(config.getString("name").replace("<month>", month).replace("<year>", Integer.toString(year))
 							.replace("<day>", Integer.toString(day)).replace("<name>", entry.getKey())));
+
+		}
+		
+		if (Main.getInstance().getConfig().getBoolean("uuid")) {
+
+			String id = Request.sendGetIdRequest(currentName);
+			
+			TextComponent text = new TextComponent(cc(Main.getInstance().getConfig().getString("uuid-msg")
+					.replace("<player>", currentName).replace("<uuid>", id)));
+			
+			text.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, id));
+			text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(cc("&eClick to copy the UUID"))));
+			
+			sender.spigot().sendMessage(text);
 
 		}
 

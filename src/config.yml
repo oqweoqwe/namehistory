@@ -1,5 +1,11 @@
 # placeholders. these only work on the messages where they make sense
-# <pluginname>, <version>, <player>, <name>, <year>, <month>, <day>
+# <pluginname>, <version>, <player>, <name>, <year>, <month>, <day>, <uuid>
+
+# show uuid in name history?
+uuid: true
+
+# uuid msg
+uuid-msg: '&6<player>&es UUID is <uuid>'
 
 # no permission message
 no-permission: '&cYou do not have permission to use this command'

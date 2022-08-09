@@ -11,6 +11,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	
 	// TODO add /nh skin command
 	// TODO show uuid option in config
+	// TODO implement protection against spam requests
 
 	public void onEnable() {
 		

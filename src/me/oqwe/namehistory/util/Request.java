@@ -45,6 +45,34 @@ public class Request {
 		connection.disconnect();
 		return null;
 	}
+	
+	public static String sendGetIdRequest(String name) throws Exception {
+
+		URL url = new URL("https://api.mojang.com/user/profile/agent/minecraft/name/" + name);
+
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+
+		// if http ok
+		if (connection.getResponseCode() == 200) {
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String inputLine;
+			StringBuffer content = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				content.append(inputLine);
+			}
+			in.close();
+			if (content.length() >= 2) {
+				connection.disconnect();
+				return content.substring(17 + name.length(), content.length() - 2);
+
+			}
+
+		}
+		connection.disconnect();
+		return null;
+	}
 
 	public static String sendGetHistoryRequest(String id, CommandSender sender) throws Exception {
 
