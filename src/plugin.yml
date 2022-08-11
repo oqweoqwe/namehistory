@@ -1,5 +1,5 @@
 main: me.oqwe.namehistory.Main
-version: 1.1.0
+version: 1.2.0
 name: NameHistory
 authors: [oqwe]
 api-version: 1.19

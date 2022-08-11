@@ -23,13 +23,18 @@ public class Chat {
 		return ChatColor.translateAlternateColorCodes('&', msg);
 	}
 
-	public static void sendFormattedMessage(CommandSender sender, Set<Entry<String, Long>> names, String currentName) throws Exception {
+	public static void sendFormattedMessage(CommandSender sender, Set<Entry<String, Long>> names, String currentName)
+			throws Exception {
 
 		// if there is only one name in the map, player has never changed their name
 		if (names.size() == 1) {
 			StringBuilder sb = new StringBuilder();
 			names.forEach(entry -> sb.append(entry.getKey()));
-			sender.sendMessage(cc(config.getString("never-changed-name").replace("<player>", sb.toString())));
+			if (Main.getInstance().getConfig().getBoolean("show-link")) {
+				sender.spigot().sendMessage(getTextWithLink(
+						config.getString("never-changed-name").replace("<player>", sb.toString()), currentName));
+			} else
+				sender.sendMessage(cc(config.getString("never-changed-name").replace("<player>", sb.toString())));
 			return;
 		}
 
@@ -39,7 +44,12 @@ public class Chat {
 
 			// the first name is formatted differently, as there is no change date
 			if (entry.getValue() == 0L) {
-				sender.sendMessage(cc(config.getString("first-name").replace("<name>", entry.getKey())));
+
+				if (Main.getInstance().getConfig().getBoolean("show-link")) {
+					sender.spigot().sendMessage(getTextWithLink(
+							config.getString("first-name").replace("<name>", entry.getKey()), currentName));
+				} else
+					sender.sendMessage(cc(config.getString("first-name").replace("<name>", entry.getKey())));
 				continue;
 			}
 
@@ -53,26 +63,43 @@ public class Chat {
 					.replace("3", "April").replace("4", "May").replace("5", "June").replace("6", "July")
 					.replace("7", "August").replace("8", "September").replace("9", "October");
 
-			sender.sendMessage(
-					cc(config.getString("name").replace("<month>", month).replace("<year>", Integer.toString(year))
-							.replace("<day>", Integer.toString(day)).replace("<name>", entry.getKey())));
+			if (Main.getInstance().getConfig().getBoolean("show-link")) {
+				sender.spigot().sendMessage(getTextWithLink(
+						config.getString("name").replace("<month>", month).replace("<year>", Integer.toString(year))
+								.replace("<day>", Integer.toString(day)).replace("<name>", entry.getKey()),
+						currentName));
+			} else
+				sender.sendMessage(
+						cc(config.getString("name").replace("<month>", month).replace("<year>", Integer.toString(year))
+								.replace("<day>", Integer.toString(day)).replace("<name>", entry.getKey())));
 
 		}
-		
+
 		if (Main.getInstance().getConfig().getBoolean("uuid")) {
 
 			String id = Request.sendGetIdRequest(currentName);
-			
+
 			TextComponent text = new TextComponent(cc(Main.getInstance().getConfig().getString("uuid-msg")
 					.replace("<player>", currentName).replace("<uuid>", id)));
-			
+
 			text.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, id));
 			text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(cc("&eClick to copy the UUID"))));
-			
+
 			sender.spigot().sendMessage(text);
 
 		}
 
+	}
+
+	public static TextComponent getTextWithLink(String msg, String name) {
+
+		TextComponent text = new TextComponent(cc(msg));
+
+		text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://namemc.com/search?q=" + name));
+		text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+				new Text(cc("&eClick to visit this players name mc site"))));
+
+		return text;
 	}
 
 }

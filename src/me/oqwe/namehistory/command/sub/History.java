@@ -10,7 +10,7 @@ import me.oqwe.namehistory.util.Request;
 public class History {
 
 	public static void run(CommandSender sender, String name) throws Exception {
-
+		
 		sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("fetch").replace("<player>", name)));
 
 		// get uuid from username

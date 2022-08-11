@@ -1,6 +1,9 @@
 # placeholders. these only work on the messages where they make sense
 # <pluginname>, <version>, <player>, <name>, <year>, <month>, <day>, <uuid>
 
+# if this is true the messages about a player will have a hover event with a link to the players site on name mc
+show-link: true
+
 # show uuid in name history?
 uuid: true
 
