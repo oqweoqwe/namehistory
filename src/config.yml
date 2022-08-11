@@ -1,6 +1,13 @@
 # placeholders. these only work on the messages where they make sense
 # <pluginname>, <version>, <player>, <name>, <year>, <month>, <day>, <uuid>
 
+# per player cooldown on sending http requests to the mojang api, as too many requests can cause performance issues (in seconds)
+# set to 0 to disable cooldown
+cooldown: 5
+
+# if you are on cooldown this message is sent
+cooldown-msg: '&cPlease wait a moment before sending another request'
+
 # if this is true the messages about a player will have a hover event with a link to the players site on name mc
 show-link: true
 

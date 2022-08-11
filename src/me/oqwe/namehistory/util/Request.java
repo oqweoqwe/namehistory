@@ -91,7 +91,6 @@ public class Request {
 			}
 			in.close();
 			connection.disconnect();
-			sender.sendMessage("dwa222");
 			return content.toString();
 
 		}

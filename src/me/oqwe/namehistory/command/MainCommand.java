@@ -43,10 +43,6 @@ public class MainCommand implements CommandExecutor {
 			Reload.run(sender);
 			return true;
 
-		/*
-		 * case "skin": Skin.run(sender, args); return true;
-		 */
-
 		case "help":
 			if (!sender.hasPermission("namehistory.help")) {
 				sender.sendMessage(Chat.cc(Main.getInstance().getConfig().getString("no-permission")));
